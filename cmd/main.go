@@ -1,7 +1,7 @@
 package cmd
 
 import (
-
+	"github.com/simonha9/web-crawler/pkg/frontier"
 )
 
 type Crawler struct {
@@ -10,9 +10,8 @@ type Crawler struct {
 }
 
 func (c *Crawler) Run() {
-	for _, seed := range c.seeds {
-		c.crawl(seed)
-	}
+	frontier := frontier.Frontier{c.seeds, c.algorithm}
+	frontier.Run()
 }
 
 
