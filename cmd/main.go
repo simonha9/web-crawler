@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"github.com/simonha9/web-crawler/pkg/frontier"
+	"github.com/simonha9/web-crawler/pkg/crawl"
 )
 
 type Crawler struct {
 	seeds []string
-	algorithm string // currently only DFS or BFS
+	algorithm crawl.Algorithm // currently only DFS or BFS
 }
 
 func (c *Crawler) Run() {

@@ -1,33 +1,45 @@
 package frontier
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/simonha9/web-crawler/pkg/crawl"
+)
 
 type Frontier struct {
 	seeds []string
-	algorithm string // currently only DFS or BFS
+	algorithm crawl.Algorithm // currently only DFS or BFS
+	crawler crawl.Crawler
+}
+
+
+func NewFrontier(seeds []string, algorithm string) *Frontier {
+	algo := crawl.Default
+	switch algorithm {
+	case "DFS":
+		algo = crawl.DFS
+	case "BFS":
+		algo = crawl.BFS
+	}
+
+	return &Frontier{
+		seeds: seeds,
+		algorithm: algo,
+		crawler: crawl.NewCrawler(algo),
+	}
 }
 
 func (f *Frontier) Run() {
 	for _, seed := range f.seeds {
-		f.crawl(seed)
+		f.crawler.crawl(seed)
 	}
 }
 
-func (f *Frontier) crawl(url string) {
-	// do something
-	switch f.algorithm {
-	case "DFS":
-		f.DFS()
-	case "BFS":
-		f.BFS()
-	}
-}
-
-func (f *Frontier) DFS() {
+func (f *Frontier) DFS(url string) {
 	fmt.Println("DFS")
 }
 
-func (f *Frontier) BFS() {
+func (f *Frontier) BFS(url string) {
+
 	fmt.Println("BFS")
 }
 
