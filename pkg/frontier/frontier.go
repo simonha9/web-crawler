@@ -1,7 +1,6 @@
 package frontier
 
 import (
-	"fmt"
 	"github.com/simonha9/web-crawler/pkg/crawl"
 )
 
@@ -24,23 +23,13 @@ func NewFrontier(seeds []string, algorithm string) *Frontier {
 	return &Frontier{
 		seeds: seeds,
 		algorithm: algo,
-		crawler: crawl.NewCrawler(algo),
+		crawler: crawl.NewCrawler(algo, seeds),
 	}
 }
 
 func (f *Frontier) Run() {
 	for _, seed := range f.seeds {
-		f.crawler.crawl(seed)
+		f.crawler.Crawl(seed)
 	}
 }
-
-func (f *Frontier) DFS(url string) {
-	fmt.Println("DFS")
-}
-
-func (f *Frontier) BFS(url string) {
-
-	fmt.Println("BFS")
-}
-
 

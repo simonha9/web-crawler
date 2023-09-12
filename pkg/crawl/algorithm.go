@@ -1,22 +1,24 @@
 package crawl
 
 const (
-	DFS = "DFS"
-	BFS = "BFS"
-	Default = "BFS"
+	DFS Algorithm = "DFS"
+	BFS Algorithm = "BFS"
+	Default Algorithm = "BFS"
 )
 
 type Algorithm string
 
 type Crawler interface {
-	crawl(url string)
+	Crawl(url string)
 }
 
-func NewCrawler(algorithm Algorithm) *Crawler {
+func NewCrawler(algorithm Algorithm, seeds []string) Crawler {
 	switch algorithm {
 	case DFS:
 		// return NewDFSCrawler()
 	default:
-		// return &BFSCrawler{}
+		return NewBFSCrawler(seeds)
 	}
+	
+	return nil
 }
