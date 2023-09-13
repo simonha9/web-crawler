@@ -2,6 +2,7 @@ package crawl
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/simonha9/web-crawler/pkg/downloader"
 )
@@ -32,11 +33,21 @@ func (c BFSCrawler) Crawl(url string) {
 			c.Visit(url)
 		}
 
+		links := c.downloader.DownloadAndGetLinks(url)
+		for _, link := range links {
+			for _, l := range link {
+				if strings.HasPrefix(l, "/") {
+					l = url + l
+				}
+				if !c.IsVisited(l) {
+					c.queue = append(c.queue, l)
+				}
+			}
+		}
 	}
 }
 
 func (c BFSCrawler) Visit(url string) {
-	c.downloader.Download(url)
 	c.visited[url] = true
 	fmt.Println("Visited", url)
 }
