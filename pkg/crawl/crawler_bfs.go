@@ -1,11 +1,16 @@
 package crawl
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/simonha9/web-crawler/pkg/downloader"
+)
 
 type BFSCrawler struct {
 	seeds   []string
 	queue   []string
 	visited map[string]bool
+	downloader downloader.Downloader
 }
 
 func NewBFSCrawler(seeds []string) BFSCrawler {
@@ -23,8 +28,19 @@ func (c BFSCrawler) Crawl(url string) {
 		url := c.queue[0]
 		c.queue = c.queue[1:]
 
-		fmt.Println(url)
-		// do something
+		if !c.IsVisited(url) {
+			c.Visit(url)
+		}
 
 	}
+}
+
+func (c BFSCrawler) Visit(url string) {
+	c.downloader.Download(url)
+	c.visited[url] = true
+	fmt.Println("Visited", url)
+}
+
+func (c BFSCrawler) IsVisited(url string) bool {
+	return c.visited[url]
 }

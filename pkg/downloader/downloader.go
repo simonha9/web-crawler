@@ -1,14 +1,9 @@
 package downloader
 
-import (
+import "fmt"
 
-)
-
-type Downloader struct {
-	// stuff
-
-}
+type Downloader struct {}
 
 func (d *Downloader) Download(url string) {
-	// do something
+	fmt.Println("Downloading", url)
 }
